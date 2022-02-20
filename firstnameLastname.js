@@ -80,6 +80,7 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <Text style={styles.header}> USER LIST</Text>
         <TextInput
+        style={{textAlign:"center", margin:10,borderRadius:5,borderWidth:1,padding:3}}
           placeholder="no. of users"
           onChangeText={(x) => {
             this.setState({ no_user: x });
@@ -91,23 +92,26 @@ export default class App extends React.Component {
             this.display();
           }}
         />
+         <FlatList
+          data={list}
+          renderItem={({ item }) => (
+            <View style={{flexDirection:"row"}}>
+            <Image source={{uri:"https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"}} style={{width:40,height:40, borderRadius:25}}
+            />
+            <Text style={{fontSize:24, margin:15}}>
+              {item.name.first} {item.name.first}
+            </Text>
+            </View>
+          )}
+          ItemSeparatorComponent={this.renderSeparator}
+        />
         <Button
         title="last fetched"
         onPress={()=>{
           this.displayPre()
         }}
         />
-        <FlatList
-          data={list}
-          renderItem={({ item }) => (
-            <Text>
-              {item.name.first} {item.name.first}
-            </Text>
-          )}
-          ItemSeparatorComponent={this.renderSeparator}
-        />
-        />
-        <Text>{this.state.pre_data}</Text>
+        <Text style={styles.paragraph}>Number of users fetched previously: {this.state.pre_data}</Text>
       </View>
     );
   }
@@ -116,7 +120,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'lightblue',
+    backgroundColor: 'white',
     paddingTop: Constants.statusBarHeight,
   },
   paragraph: {
@@ -126,7 +130,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   header: {
-    backgroundColor: 'white',
+    backgroundColor: 'pink',
     flex: 0.04,
+    fontSize:35,
+
   },
 });
